@@ -12,36 +12,35 @@
 
 #include"Webserv.hpp"
 
-Webserv::Webserv()
+Pars::Pars()
 {
-	this->data = 0;
-	std::cout << "Webserv default constructor called" << std::endl;
+	this->str = "";
 }
 
-Webserv::Webserv(const Webserv &ws)
+Pars::Pars(const Pars &ws)
 {
 	*this = ws;
-	std::cout << "Webserv copy constructor called" << std::endl;
+	std::cout << "Pars copy constructor called" << std::endl;
 }
 
-Webserv	Webserv::operator = (const Webserv &ws)
+Pars	Pars::operator = (const Pars &ws)
 {
-	this->data = ws.data;
-	std::cout << "Webserv copy assignement constructor called" << std::endl;
+	this->str = ws.str;
+	std::cout << "Pars copy assignement constructor called" << std::endl;
 	return (*this);
 }
 
-void	Webserv::setData(int data)
+void	Pars::setNginixFile(void)
 {
-	this->data = data;
+	char	c;
+	std::ifstream rf("nginix.conf", std::ios::in);
+	while (!rf.eof() && rf >> std::noskipws >> c)
+		this->str += c;
 }
 
-int		Webserv::getData(void) const
+std::string		Pars::getData(void) const
 {
-	return (this->data);
+	return (this->str);
 }
 
-Webserv::~Webserv()
-{
-	std::cout << "Webserv destructor called" << std::endl;
-}
+Pars::~Pars(){}

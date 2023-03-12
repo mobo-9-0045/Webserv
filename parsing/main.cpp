@@ -14,9 +14,9 @@
 
 int main(void)
 {
-	Webserv ws;
+	Pars p;
 
-	ws.setData (10);
-	std::cout << ws.getData() << std::endl;
+	p.setNginixFile ();
+	std::cout << p.getData() << std::endl;
 	return (0);
 }

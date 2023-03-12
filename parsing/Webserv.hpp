@@ -13,17 +13,18 @@
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
 # include<iostream>
+# include<fstream>
 
-class Webserv
+class Pars
 {
 	private : 
-		int data;
+		std::string str;
 	public : 
-		Webserv();
-		Webserv(const Webserv &ws);
-		Webserv operator = (const Webserv &ws);
-		void	setData(int data);
-		int		getData(void) const;
-		~Webserv();
+		Pars();
+		Pars(const Pars &ws);
+		Pars operator = (const Pars &ws);
+		void	setNginixFile(void);
+		std::string		getData(void) const;
+		~Pars();
 };
 #endif
