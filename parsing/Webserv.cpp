@@ -30,6 +30,23 @@ Pars	Pars::operator = (const Pars &ws)
 	return (*this);
 }
 
+const char *Pars::BracketsException::what() const throw()
+{
+	return ("Unclosed brackets");
+}
+
+void	Pars::checkBrackets(void) const
+{
+	int	a = 0;
+	int b = 0;
+	if (std::find(this->str, '{') > 0)
+		a++;
+	if (std::find(this->str, '}') > 0)
+		b++;
+	if (a != b)
+		throw(BracketsException());
+}
+
 void	Pars::setNginixFile(void)
 {
 	char	c;

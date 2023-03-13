@@ -14,6 +14,8 @@
 # define WEBSERV_HPP
 # include<iostream>
 # include<fstream>
+# include<exception>
+# include<algorithm>
 
 class Pars
 {
@@ -24,7 +26,13 @@ class Pars
 		Pars(const Pars &ws);
 		Pars operator = (const Pars &ws);
 		void	setNginixFile(void);
+		void	checkBrackets(void) const;
 		std::string		getData(void) const;
-		~Pars();
+		class	BracketsException : public std::exception
+		{
+			public : 
+				virtual const char *what() const throw();
+		};
+		virtual ~Pars();
 };
 #endif

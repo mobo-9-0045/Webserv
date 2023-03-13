@@ -16,7 +16,13 @@ int main(void)
 {
 	Pars p;
 
+	try{
 	p.setNginixFile ();
 	std::cout << p.getData() << std::endl;
+	}
+	catch(std::exception &e)
+	{
+		std::cout << "Error : " << &e << std::endl;
+	}
 	return (0);
 }
