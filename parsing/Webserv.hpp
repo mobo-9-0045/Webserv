@@ -20,19 +20,35 @@
 class Pars
 {
 	private : 
-		std::string str;
+		std::string file_name;
 	public : 
 		Pars();
 		Pars(const Pars &ws);
 		Pars operator = (const Pars &ws);
-		void	setNginixFile(void);
-		void	checkBrackets(void) const;
+		void	setNginixFile(char **argv);
 		std::string		getData(void) const;
-		class	BracketsException : public std::exception
+		class	NotOpen : public std::exception
 		{
-			public : 
+			public :
 				virtual const char *what() const throw();
 		};
+		class	EndNotReached : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
+		class	Nofile : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
+		class	YmlFileError : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
+		void	check_yml();
+		void	check_serverfile(std::ifstream &rf);
 		virtual ~Pars();
 };
 #endif

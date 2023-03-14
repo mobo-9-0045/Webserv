@@ -12,17 +12,20 @@
 
 #include"Webserv.hpp"
 
-int main(void)
+int main(int argc, char **argv)
 {
-	Pars p;
-
-	try{
-	p.setNginixFile ();
-	std::cout << p.getData() << std::endl;
-	}
-	catch(std::exception &e)
+	if (argc == 2)
 	{
-		std::cout << "Error : " << &e << std::endl;
+		Pars p;
+		(void)argc;
+		try
+		{
+			p.setNginixFile (argv);
+		}
+		catch(std::exception &e)
+		{
+			std::cout << "Error : " << e.what() << std::endl;
+		}
 	}
 	return (0);
 }

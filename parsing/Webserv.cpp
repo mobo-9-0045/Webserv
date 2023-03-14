@@ -14,7 +14,6 @@
 
 Pars::Pars()
 {
-	this->str = "";
 }
 
 Pars::Pars(const Pars &ws)
@@ -25,39 +24,64 @@ Pars::Pars(const Pars &ws)
 
 Pars	Pars::operator = (const Pars &ws)
 {
-	this->str = ws.str;
+	this->file_name = ws.file_name;
 	std::cout << "Pars copy assignement constructor called" << std::endl;
 	return (*this);
 }
 
-const char *Pars::BracketsException::what() const throw()
+const char	*Pars::NotOpen::what() const throw()
 {
-	return ("Unclosed brackets");
+	return ("file not opened succesfully");
 }
 
-void	Pars::checkBrackets(void) const
+const char	*Pars::EndNotReached::what() const throw()
 {
-	int	a = 0;
-	int b = 0;
-	if (std::find(this->str, '{') > 0)
-		a++;
-	if (std::find(this->str, '}') > 0)
-		b++;
-	if (a != b)
-		throw(BracketsException());
+	return ("you must set end of confige file");
 }
 
-void	Pars::setNginixFile(void)
+const char	*Pars::Nofile::what() const throw()
 {
-	char	c;
-	std::ifstream rf("nginix.conf", std::ios::in);
-	while (!rf.eof() && rf >> std::noskipws >> c)
-		this->str += c;
+	return ("server rquire config file");
+}
+
+const char	*Pars::YmlFileError::what() const throw()
+{
+	return ("configuration file must be .yml");
+}
+
+void	Pars::check_serverfile(std::ifstream &rf)
+{
+	std::string line;
+
+	getline(rf, line);
+	std::cout << line << std::endl;
+}
+
+void	Pars::check_yml()
+{
+	size_t i;
+	std::string	yml;
+	yml = ".yml";
+	i = this->file_name.find(yml, 0);
+	if (i == std::string::npos)
+		throw(YmlFileError());
+}
+
+void	Pars::setNginixFile(char **argv)
+{
+	if (argv[1] == NULL)
+		throw(Nofile());
+	this->file_name = argv[1];
+	std::ifstream rf(this->file_name, std::ios::in);
+	if (rf.is_open() == false)
+		throw(NotOpen());
+	this->check_yml();
+	this->check_serverfile(rf);
 }
 
 std::string		Pars::getData(void) const
 {
-	return (this->str);
+	return (this->file_name);
 }
 
 Pars::~Pars(){}
