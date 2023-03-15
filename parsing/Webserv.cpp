@@ -52,14 +52,10 @@ const char	*Pars::YmlFileError::what() const throw()
 void	Pars::check_serverfile(std::ifstream &rf)
 {
 	std::string line;
-	std::string	server;
-	int			checker;
 
-	checker = 0;
 	while (!rf.eof())
 	{
 		getline(rf, line);
-		std::stringstream(line);
 		std::cout << line << std::endl;
 	}
 }
@@ -79,7 +75,7 @@ void	Pars::setNginixFile(char **argv)
 	if (argv[1] == NULL)
 		throw(Nofile());
 	this->file_name = argv[1];
-	std::ifstream rf(this->file_name, std::ios::in);
+	std::ifstream rf(this->file_name.c_str(), std::ios::in);
 	if (rf.is_open() == false)
 		throw(NotOpen());
 	this->check_yml();
