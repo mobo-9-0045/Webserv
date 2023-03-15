@@ -49,17 +49,28 @@ const char	*Pars::YmlFileError::what() const throw()
 	return ("configuration file must be .yml");
 }
 
+void	ft_getserver(std::ifstream &rf)
+{
+	std::string line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 10, "\tlocation") == 0)
+			std::cout << "----->" << line << std::endl;
+		std::cout << line << std::endl;
+	}
+}
+
 void	Pars::check_serverfile(std::ifstream &rf)
 {
 	std::string line;
-	int			a;
-
-	a = 0;
+	
 	while (!rf.eof())
 	{
 		getline(rf, line);
 			if (line == "server:")
-				a = 1;
+				ft_getserver(rf);
 		std::cout << line << std::endl;
 	}
 }
