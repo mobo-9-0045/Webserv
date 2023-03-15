@@ -52,10 +52,14 @@ const char	*Pars::YmlFileError::what() const throw()
 void	Pars::check_serverfile(std::ifstream &rf)
 {
 	std::string line;
+	int			a;
 
+	a = 0;
 	while (!rf.eof())
 	{
 		getline(rf, line);
+			if (line == "server:")
+				a = 1;
 		std::cout << line << std::endl;
 	}
 }
