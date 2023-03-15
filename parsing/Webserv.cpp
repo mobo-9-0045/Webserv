@@ -49,16 +49,66 @@ const char	*Pars::YmlFileError::what() const throw()
 	return ("configuration file must be .yml");
 }
 
-void	ft_getserver(std::ifstream &rf)
+void	Pars::set_upload(std::ifstream &rf)
 {
 	std::string line;
 
 	while (!rf.eof())
 	{
 		getline(rf, line);
-		if (line.compare(0, 10, "\tlocation") == 0)
-			std::cout << "----->" << line << std::endl;
-		std::cout << line << std::endl;
+		if (line.compare(0, 8, "\t\tupload") == 0)
+			this->upload = line;
+	}
+}
+
+std::string	Pars::get_upload(void) const
+{
+	return (this->upload);
+}
+
+void	Pars::set_index(std::ifstream &rf)
+{
+	std::string	line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 7, "\t\tindex"))
+			this->index = line;
+	}
+}
+
+std::string	Pars::get_index(void) const
+{
+	return (this->index);
+}
+
+void	Pars::set_root(std::ifstream &rf)
+{
+	std::string line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 6, "\t\troot") == 0)
+			this->root = line;
+	}
+}
+
+std::string	Pars::get_root(void) const
+{
+	return (this->root);
+}
+
+void	Pars::ft_getserver(std::ifstream &rf)
+{
+	std::string line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 10, "\tlocation:") == 0)
+			std::cout << "get_server function" << std::endl;
 	}
 }
 
@@ -70,14 +120,14 @@ void	Pars::check_serverfile(std::ifstream &rf)
 	{
 		getline(rf, line);
 			if (line == "server:")
-				ft_getserver(rf);
-		std::cout << line << std::endl;
+				std::cout << "Server started" << std::endl;
 	}
 }
 
-void	Pars::check_yml()
+void	Pars::check_yml(char *str)
 {
 	size_t i;
+	this->file_name = (std::string)str;
 	std::string	yml;
 	yml = ".yml";
 	i = this->file_name.find(yml, 0);
@@ -85,16 +135,10 @@ void	Pars::check_yml()
 		throw(YmlFileError());
 }
 
-void	Pars::setNginixFile(char **argv)
+void	Pars::setNginixFile(std::ifstream &rf, char *str)
 {
-	if (argv[1] == NULL)
-		throw(Nofile());
-	this->file_name = argv[1];
-	std::ifstream rf(this->file_name.c_str(), std::ios::in);
-	if (rf.is_open() == false)
-		throw(NotOpen());
-	this->check_yml();
 	this->check_serverfile(rf);
+	this->check_yml(str);
 }
 
 std::string		Pars::getData(void) const

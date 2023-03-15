@@ -19,7 +19,17 @@ int main(int argc, char **argv)
 		Pars p;
 		try
 		{
-			p.setNginixFile (argv);
+			std::ifstream rf(argv[1], std::ios::in);
+			if (rf.is_open() == false)
+				throw ("not opened");
+			p.setNginixFile (rf, argv[1]);
+			p.ft_getserver(rf);
+			p.set_root(rf);
+			p.set_index(rf);
+			p.set_upload(rf);
+			std::cout << "---->" << p.get_index() << std::endl;
+			std::cout << "---->" << p.get_root() << std::endl;
+			std::cout << "---->" << p.get_upload() << std::endl;
 		}
 		catch(std::exception &e)
 		{
