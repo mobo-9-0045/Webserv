@@ -31,7 +31,7 @@ Pars	Pars::operator = (const Pars &ws)
 
 const char	*Pars::NotOpen::what() const throw()
 {
-	return ("file not opened succesfully");
+	return ("file not found");
 }
 
 const char	*Pars::EndNotReached::what() const throw()
@@ -52,9 +52,16 @@ const char	*Pars::YmlFileError::what() const throw()
 void	Pars::check_serverfile(std::ifstream &rf)
 {
 	std::string line;
+	std::string	server;
+	int			checker;
 
-	getline(rf, line);
-	std::cout << line << std::endl;
+	checker = 0;
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		std::stringstream(line);
+		std::cout << line << std::endl;
+	}
 }
 
 void	Pars::check_yml()
