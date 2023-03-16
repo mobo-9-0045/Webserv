@@ -57,7 +57,9 @@ void	Pars::set_upload(std::ifstream &rf)
 	{
 		getline(rf, line);
 		if (line.compare(0, 8, "\t\tupload") == 0)
+		{
 			this->upload = line;
+		}
 	}
 }
 
@@ -73,8 +75,11 @@ void	Pars::set_index(std::ifstream &rf)
 	while (!rf.eof())
 	{
 		getline(rf, line);
-		if (line.compare(0, 7, "\t\tindex"))
+		if (line.compare(0, 7, "\t\tindex") == 0)
+		{
 			this->index = line;
+			this->set_upload(rf);
+		}
 	}
 }
 
@@ -91,7 +96,10 @@ void	Pars::set_root(std::ifstream &rf)
 	{
 		getline(rf, line);
 		if (line.compare(0, 6, "\t\troot") == 0)
+		{
 			this->root = line;
+			this->set_index(rf);
+		}
 	}
 }
 
@@ -119,8 +127,11 @@ void	Pars::check_serverfile(std::ifstream &rf)
 	while (!rf.eof())
 	{
 		getline(rf, line);
-			if (line == "server:")
-				std::cout << "Server started" << std::endl;
+		if (line == "server:")
+		{
+			std::cout << "server start " << line << std::endl;
+			this->set_root(rf);
+		}
 	}
 }
 

@@ -16,8 +16,8 @@ NAME = webserv
 
 all : ${NAME}
 
-${NAME} : ${SRC} 
-	c++ -Wall -Wextra -Werror -std=c++98 ${SRC} -o ${NAME}
+${NAME} : ${SRC}
+	c++ -Wall -Wextra -Werror -std=c++98 ${SRC} -o ${NAME} -g -fsanitize=address
 
 fclean : 
 	rm -f ${NAME}

@@ -1,8 +1,9 @@
 server:
 	location:
 		root -valid_path_file
+		root -valid_path_2
 		index -(default)
-		upload path
+		upload -path
 	listen 127.0.0.1:8080
 	mothods GET POST DELETE
 
