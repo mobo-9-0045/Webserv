@@ -54,6 +54,117 @@ const char *Location::PathError::what() const throw()
 	return ("invalid path");
 }
 
+std::string	Location::set_values(std::string line)
+{
+	size_t	start;
+	start = line.find("/");
+	if (start == std::string::npos)
+		throw(PathError());
+	this->line_val = line.substr(start, line.length());
+	return (this->line_val);
+}
+
+void	Location::set_config_items()
+{
+	this->config_items.insert(std::make_pair("root", this->root_val));
+	this->config_items.insert(std::make_pair("index", this->index_val));
+	this->config_items.insert(std::make_pair("upload", this->upload_val));
+	std::map<std::string, std::string>::iterator	it;
+	it = this->config_items.begin();
+	std::cout << "here" << std::endl;
+	while (it != this->config_items.end())
+	{
+		std::cout << it->first << std::endl;
+		std::cout << it->second << std::endl;
+		++it;
+	}
+}
+
+std::map<std::string, std::string>	Location::get_config_item(void) const
+{
+	return (this->config_items);
+}
+
+void	Location::set_upload(std::ifstream &rf)
+{
+	std::string line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 8, "\t\tupload") == 0)
+		{
+			this->upload_val = set_values(line);
+		}
+	}
+}
+
+std::string	Location::get_upload(void) const
+{
+	return (this->upload_val);
+}
+
+void	Location::set_index(std::ifstream &rf)
+{
+	std::string	line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 7, "\t\tindex") == 0)
+		{
+			this->index_val = this->set_values(line);
+			this->set_upload(rf);
+		}
+	}
+}
+
+std::string	Location::get_index(void) const
+{
+	return (this->index_val);
+}
+
+void	Location::set_root(std::ifstream &rf)
+{
+	std::string line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 6, "\t\troot") == 0)
+		{
+			this->root_val = this->set_values(line);
+			this->set_index(rf);
+		}
+	}
+}
+
+std::string	Location::get_root(void) const
+{
+	return (this->root_val);
+}
+
+void	Location::set_location(std::ifstream &rf)
+{
+	std::string line;
+
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 9, "\tlocation") == 0)
+		{
+			this->location_val = this->set_values(line);
+			this->set_root(rf);
+			this->location_val = this->location_val.substr(0, this->location_val.length() - 1);
+		}
+	}
+}
+
+std::string	Location::get_location(void)const
+{
+	return (this->location_val);
+}
+
 void	Location::check_serverfile(std::ifstream &rf)
 {
 	std::string line;

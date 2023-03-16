@@ -25,8 +25,8 @@ class Location
 		std::string	root_val;
 		std::string line_val;
 		std::string	index_val;
-		std::string	upload_val;
 		std::string	location_val;
+		std::string	upload_val;
 	
 		std::map<std::string, std::string> config_items;
 	public : 
@@ -62,10 +62,8 @@ class Location
 		};
 		void	check_yml(char *str);
 		void	check_serverfile(std::ifstream &rf);
+		void	ft_getserver(std::ifstream &rf);
 
-		void	set_location(std::ifstream &rf);
-		std::string	get_location(void) const;
-		
 		void	set_root(std::ifstream &rf);
 		std::string	get_root(void) const;
 
@@ -75,9 +73,11 @@ class Location
 		void	set_upload(std::ifstream &rf);
 		std::string	get_upload(void) const;
 
+		void	set_location(std::ifstream &rf);
+		std::string	get_location(void) const;
+
 		std::string	set_values(std::string line);
 		void	set_config_items(void);
-
 		std::map<std::string, std::string>	get_config_item(void) const;
 		virtual ~Location();
 };

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.cpp Webserv.cpp
+SRC = main.cpp Webserv.cpp location.cpp
 
 NAME = webserv
 
