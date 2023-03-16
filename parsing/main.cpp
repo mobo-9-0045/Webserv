@@ -23,10 +23,10 @@ int main(int argc, char **argv)
 			if (rf.is_open() == false)
 				throw ("not opened");
 			p->setNginixFile (rf, argv[1]);
-			p->ft_getserver(rf);
 			std::cout << "---->" << p->get_root() << std::endl;
 			std::cout << "---->" << p->get_index() << std::endl;
 			std::cout << "---->" << p->get_upload() << std::endl;
+			std::cout << "---->" << p->get_location() << std::endl;
 			p->set_config_items();
 			delete(p);
 		}

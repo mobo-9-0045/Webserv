@@ -144,16 +144,25 @@ std::string	Pars::get_root(void) const
 	return (this->root_val);
 }
 
-void	Pars::ft_getserver(std::ifstream &rf)
+void	Pars::set_location(std::ifstream &rf)
 {
 	std::string line;
 
 	while (!rf.eof())
 	{
 		getline(rf, line);
-		if (line.compare(0, 10, "\tlocation:") == 0)
-			std::cout << "get_server function" << std::endl;
+		if (line.compare(0, 9, "\tlocation") == 0)
+		{
+			this->location_val = this->set_values(line);
+			this->set_root(rf);
+			this->location_val = this->location_val.substr(0, this->location_val.length() - 1);
+		}
 	}
+}
+
+std::string	Pars::get_location(void)const
+{
+	return (this->location_val);
 }
 
 void	Pars::check_serverfile(std::ifstream &rf)
@@ -166,7 +175,7 @@ void	Pars::check_serverfile(std::ifstream &rf)
 		if (line == "server:")
 		{
 			std::cout << "server start " << line << std::endl;
-			this->set_root(rf);
+			this->set_location(rf);
 		}
 	}
 }
