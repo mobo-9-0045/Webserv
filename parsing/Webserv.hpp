@@ -20,9 +20,7 @@ class Server
 	private :
 		int	n_location;
 	public :
-		void	set_number_of_location(std::ifstream &file);
-		int		GET_LOCATION_NUMBER(void) const;
-		Location l[GET_LOCATION_NUMBER()];
+		Location l[100];
 		Server();
 		~Server();
 };

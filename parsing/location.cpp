@@ -71,7 +71,6 @@ void	Location::set_config_items()
 	this->config_items.insert(std::make_pair("upload", this->upload_val));
 	std::map<std::string, std::string>::iterator	it;
 	it = this->config_items.begin();
-	std::cout << "here" << std::endl;
 	while (it != this->config_items.end())
 	{
 		std::cout << it->first << std::endl;
@@ -95,6 +94,7 @@ void	Location::set_upload(std::ifstream &rf)
 		if (line.compare(0, 8, "\t\tupload") == 0)
 		{
 			this->upload_val = set_values(line);
+			return ;
 		}
 	}
 }
@@ -115,6 +115,7 @@ void	Location::set_index(std::ifstream &rf)
 		{
 			this->index_val = this->set_values(line);
 			this->set_upload(rf);
+			return ;
 		}
 	}
 }
@@ -135,6 +136,7 @@ void	Location::set_root(std::ifstream &rf)
 		{
 			this->root_val = this->set_values(line);
 			this->set_index(rf);
+			return ;
 		}
 	}
 }
@@ -156,6 +158,7 @@ void	Location::set_location(std::ifstream &rf)
 			this->location_val = this->set_values(line);
 			this->set_root(rf);
 			this->location_val = this->location_val.substr(0, this->location_val.length() - 1);
+			return ;
 		}
 	}
 }
@@ -173,10 +176,7 @@ void	Location::check_serverfile(std::ifstream &rf)
 	{
 		getline(rf, line);
 		if (line == "server:")
-		{
-			std::cout << "server start " << line << std::endl;
 			this->set_location(rf);
-		}
 	}
 }
 

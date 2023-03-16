@@ -18,31 +18,33 @@ int main(int argc, char **argv)
 	if (argc == 2)
 	{
 		(void)argv;
-		Location *l = new Location();
+		//Location *l = new Location();
 		try
 		{
-			//std::string	line;
+			std::string	line;
 			std::ifstream rf(argv[1], std::ios::in);
 			if (rf.is_open() == false)
 				throw ("not opened");
-			//getline(rf, line);
-			//if (line == "server:")
 			Server s;
-			s.set_number_of_location(rf);
-			std::cout << s.GET_LOCATION_NUMBER() << std::endl;
-			//l->setNginixFile (rf, argv[1]);
-			//std::cout << "---->" << l->get_root() << std::endl;
-			//std::cout << "---->" << l->get_index() << std::endl;
-			//std::cout << "---->" << l->get_upload() << std::endl;
-			//std::cout << "---->" << l->get_location() << std::endl;
-			//l->set_config_items();
-			delete(l);
+			s.l[0].set_location(rf);
+			std::cout << "---->" << s.l[0].get_location() << std::endl;
+			std::cout << "---->" << s.l[0].get_root() << std::endl;
+			std::cout << "---->" << s.l[0].get_index() << std::endl;
+			std::cout << "---->" << s.l[0].get_upload() << std::endl;
+			s.l[1].set_location(rf);
+			std::cout << "---->" << s.l[1].get_location() << std::endl;
+			std::cout << "---->" << s.l[1].get_root() << std::endl;
+			std::cout << "---->" << s.l[1].get_index() << std::endl;
+			std::cout << "---->" << s.l[1].get_upload() << std::endl;
+			s.l[2].set_location(rf);
+			std::cout << "---->" << s.l[2].get_location() << std::endl;
+			std::cout << "---->" << s.l[2].get_root() << std::endl;
+			std::cout << "---->" << s.l[2].get_index() << std::endl;
+			std::cout << "---->" << s.l[2].get_upload() << std::endl;
 		}
 		catch(std::exception &e)
 		{
 			std::cout << "Error : " << e.what() << std::endl;
-			if (l)
-				delete (l);
 		}
 	}
 	return (0);
