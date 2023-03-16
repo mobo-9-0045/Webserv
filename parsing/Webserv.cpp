@@ -64,6 +64,26 @@ std::string	Pars::set_values(std::string line)
 	return (this->line_val);
 }
 
+void	Pars::set_config_items()
+{
+	this->config_items.insert(std::make_pair("root", this->root_val));
+	this->config_items.insert(std::make_pair("index", this->index_val));
+	this->config_items.insert(std::make_pair("upload", this->upload_val));
+	std::map<std::string, std::string>::iterator	it;
+	it = this->config_items.begin();
+	std::cout << "here" << std::endl;
+	while (it != this->config_items.end())
+	{
+		std::cout << it->first << std::endl;
+		std::cout << it->second << std::endl;
+		++it;
+	}
+}
+
+std::map<std::string, std::string>	Pars::get_config_item(void) const
+{
+	return (this->config_items);
+}
 
 void	Pars::set_upload(std::ifstream &rf)
 {

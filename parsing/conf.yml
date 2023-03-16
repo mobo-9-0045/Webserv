@@ -1,5 +1,5 @@
 server:
-	location:
+	location /examplw:
 		root /valid_path_file
 		index /(default)
 		upload /path

@@ -73,6 +73,8 @@ class Pars
 		std::string	get_upload(void) const;
 
 		std::string	set_values(std::string line);
+		void	set_config_items(void);
+		std::map<std::string, std::string>	get_config_item(void) const;
 		virtual ~Pars();
 };
 #endif

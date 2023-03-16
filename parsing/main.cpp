@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 			std::cout << "---->" << p->get_root() << std::endl;
 			std::cout << "---->" << p->get_index() << std::endl;
 			std::cout << "---->" << p->get_upload() << std::endl;
+			p->set_config_items();
 			delete(p);
 		}
 		catch(std::exception &e)
