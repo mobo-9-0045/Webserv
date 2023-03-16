@@ -22,9 +22,12 @@ class Pars
 {
 	private : 
 		std::string file_name;
-		std::string	root;
-		std::string	index;
-		std::string	upload;
+		std::string	root_val;
+		std::string line_val;
+		std::string	index_val;
+		std::string	upload_val;
+	
+		std::map<std::string, std::string> config_items;
 	public : 
 		Pars();
 		Pars(const Pars &ws);
@@ -51,6 +54,11 @@ class Pars
 			public :
 				virtual const char *what() const throw();
 		};
+		class	PathError : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
 		void	check_yml(char *str);
 		void	check_serverfile(std::ifstream &rf);
 		void	ft_getserver(std::ifstream &rf);
@@ -63,6 +71,8 @@ class Pars
 
 		void	set_upload(std::ifstream &rf);
 		std::string	get_upload(void) const;
+
+		std::string	set_values(std::string line);
 		virtual ~Pars();
 };
 #endif

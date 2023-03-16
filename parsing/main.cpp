@@ -24,7 +24,6 @@ int main(int argc, char **argv)
 				throw ("not opened");
 			p->setNginixFile (rf, argv[1]);
 			p->ft_getserver(rf);
-
 			std::cout << "---->" << p->get_root() << std::endl;
 			std::cout << "---->" << p->get_index() << std::endl;
 			std::cout << "---->" << p->get_upload() << std::endl;

@@ -49,6 +49,22 @@ const char	*Pars::YmlFileError::what() const throw()
 	return ("configuration file must be .yml");
 }
 
+const char *Pars::PathError::what() const throw()
+{
+	return ("invalid path");
+}
+
+std::string	Pars::set_values(std::string line)
+{
+	size_t	start;
+	start = line.find("/");
+	if (start == std::string::npos)
+		throw(PathError());
+	this->line_val = line.substr(start, line.length());
+	return (this->line_val);
+}
+
+
 void	Pars::set_upload(std::ifstream &rf)
 {
 	std::string line;
@@ -58,14 +74,14 @@ void	Pars::set_upload(std::ifstream &rf)
 		getline(rf, line);
 		if (line.compare(0, 8, "\t\tupload") == 0)
 		{
-			this->upload = line;
+			this->upload_val = set_values(line);
 		}
 	}
 }
 
 std::string	Pars::get_upload(void) const
 {
-	return (this->upload);
+	return (this->upload_val);
 }
 
 void	Pars::set_index(std::ifstream &rf)
@@ -77,7 +93,7 @@ void	Pars::set_index(std::ifstream &rf)
 		getline(rf, line);
 		if (line.compare(0, 7, "\t\tindex") == 0)
 		{
-			this->index = line;
+			this->index_val = this->set_values(line);
 			this->set_upload(rf);
 		}
 	}
@@ -85,7 +101,7 @@ void	Pars::set_index(std::ifstream &rf)
 
 std::string	Pars::get_index(void) const
 {
-	return (this->index);
+	return (this->index_val);
 }
 
 void	Pars::set_root(std::ifstream &rf)
@@ -97,7 +113,7 @@ void	Pars::set_root(std::ifstream &rf)
 		getline(rf, line);
 		if (line.compare(0, 6, "\t\troot") == 0)
 		{
-			this->root = line;
+			this->root_val = this->set_values(line);
 			this->set_index(rf);
 		}
 	}
@@ -105,7 +121,7 @@ void	Pars::set_root(std::ifstream &rf)
 
 std::string	Pars::get_root(void) const
 {
-	return (this->root);
+	return (this->root_val);
 }
 
 void	Pars::ft_getserver(std::ifstream &rf)
