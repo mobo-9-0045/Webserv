@@ -14,4 +14,21 @@
 
 Server::Server(){}
 
+void	Server::set_server(std::ifstream &file)
+{
+	std::string	line;
+
+	while (!file.eof())
+	{
+		getline(file, line);
+		if (line == "server:")
+			this->server = line;
+	}
+}
+
+std::string	Server::get_server(void) const
+{
+	return (this->server);
+}
+
 Server::~Server(){}

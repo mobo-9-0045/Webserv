@@ -11,3 +11,20 @@ server:
 		root /valid_path_file2
 		index /(default)2
 		upload /path2
+server:
+	location /exampl:
+		root /valid_path_files
+		index /(default)s
+		upload /paths
+	location /ok:
+		root /valid_path_files1
+		index /(default)s1
+		upload /paths1
+	location /ok2:
+		root /valid_path_files2
+		index /(default)s2
+		upload /paths2
+	location /ok3:
+		root /valid_path_files3
+		index /(default)s3
+		upload /paths3

@@ -18,10 +18,12 @@
 class Server
 {
 	private :
-		int	n_location;
+		std::string	server;
 	public :
 		Location l[100];
 		Server();
+		void	set_server(std::ifstream &file);
+		std::string	get_server(void) const;
 		~Server();
 };
 
