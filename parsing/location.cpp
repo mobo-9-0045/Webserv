@@ -54,6 +54,11 @@ const char *Location::PathError::what() const throw()
 	return ("invalid path");
 }
 
+const char *Location::SyntaxError::what() const throw()
+{
+	return ("Syntax Error");
+}
+
 std::string	Location::set_values(std::string line)
 {
 	size_t	start;
@@ -70,6 +75,7 @@ void	Location::set_config_items()
 	this->config_items.insert(std::make_pair("root", this->root_val));
 	this->config_items.insert(std::make_pair("index", this->index_val));
 	this->config_items.insert(std::make_pair("upload", this->upload_val));
+	this->config_items.insert(std::make_pair("host", this->host));
 }
 
 std::map<std::string, std::string>	Location::get_config_item(void) const
@@ -97,6 +103,32 @@ std::string	Location::get_methods(void) const
 	return (this->methods);
 }
 
+void	Location::set_host(std::ifstream &rf)
+{
+	std::string line;
+	size_t	i;
+	while (!rf.eof())
+	{
+		getline(rf, line);
+		if (line.compare(0, 8, "\t\tlisten") == 0)
+		{
+			i = line.find(":");
+			std::cout << i << std::endl;
+			if (i == std::string::npos)
+				throw(SyntaxError());
+			line = line.substr(9, i);
+			std::cout  << "|" << line << "|" << std::endl;
+			this->set_methods(rf);
+			return ;
+		}
+	}
+}
+
+std::string	Location::get_host(void) const
+{
+	return (this->host);
+}
+
 void	Location::set_upload(std::ifstream &rf)
 {
 	std::string line;
@@ -107,7 +139,7 @@ void	Location::set_upload(std::ifstream &rf)
 		if (line.compare(0, 8, "\t\tupload") == 0)
 		{
 			this->upload_val = set_values(line);
-			this->set_methods(rf);
+			this->set_host(rf);
 			return ;
 		}
 	}
