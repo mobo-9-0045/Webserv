@@ -27,7 +27,7 @@ class Location
 		std::string	index_val;
 		std::string	location_val;
 		std::string	upload_val;
-	
+		std::string methods;
 		std::map<std::string, std::string> config_items;
 	public : 
 		Location();
@@ -78,6 +78,10 @@ class Location
 
 		std::string	set_values(std::string line);
 		void	set_config_items(void);
+
+		void	set_methods(std::ifstream &rf);
+		std::string	get_methods(void) const;
+
 		std::map<std::string, std::string>	get_config_item(void) const;
 		virtual ~Location();
 };

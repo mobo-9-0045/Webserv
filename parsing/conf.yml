@@ -3,28 +3,35 @@ server:
 		root /valid_path_file
 		index /(default)
 		upload /path
+	methods 222
 	location /ok:
 		root /valid_path_file1
 		index /(default)1
 		upload /path1
+	methods 1 2 3
 	location /ok2:
 		root /valid_path_file2
 		index /(default)2
 		upload /path2
+	methods 1 2 3
 server:
 	location /exampl:
 		root /valid_path_files
 		index /(default)s
 		upload /paths
+	methods 1 2 3
 	location /ok:
 		root /valid_path_files1
 		index /(default)s1
 		upload /paths1
+	methods 1 2 3
 	location /ok2:
 		root /valid_path_files2
 		index /(default)s2
 		upload /paths2
+	methods
 	location /ok3:
 		root /valid_path_files3
 		index /(default)s3
 		upload /paths3
+	methods 1 2 3

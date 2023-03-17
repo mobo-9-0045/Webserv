@@ -13,6 +13,27 @@
 #include"location.hpp"
 #include"Webserv.hpp"
 
+int	count_servers(char **argv)
+{
+	std::string	server;
+	int			n_servr;
+	std::ifstream file(argv[1], std::ios::in);
+	if (file.is_open() == false)
+	{
+		file.close();
+		throw ("not opened");
+	}
+	n_servr = 0;
+	while (!file.eof())
+	{
+		getline(file, server);
+		if (server == "server:")
+			n_servr++;
+	}
+	file.close();
+	return (n_servr);
+}
+
 int main(int argc, char **argv)
 {
 	if (argc == 2)
@@ -21,66 +42,83 @@ int main(int argc, char **argv)
 		//Location *l = new Location();
 		try
 		{
+			std::map<std::string, std::string> config;
 			std::string	line;
-			std::string	server;
 			int			n_servr;
 
 			std::ifstream rf(argv[1], std::ios::in);
 			if (rf.is_open() == false)
-				throw ("not opened");
-			std::ifstream file(argv[1], std::ios::in);
-			if (file.is_open() == false)
-				throw ("not opened");
-			n_servr = 0;
-			while (!file.eof())
 			{
-				getline(file, server);
-				if (server == "server:")
-					n_servr++;
+				rf.close();
+				throw ("not opened");
 			}
+			n_servr = count_servers(argv);
 			Server s[n_servr];
+			std::map<std::string, std::string>::iterator it;
 			s[0].l[0].set_location(rf);
-			std::cout << "server 0 location 0" << std::endl;
-			std::cout << "---->" << s[0].l[0].get_location() << std::endl;
-			std::cout << "---->" << s[0].l[0].get_root() << std::endl;
-			std::cout << "---->" << s[0].l[0].get_index() << std::endl;
-			std::cout << "---->" << s[0].l[0].get_upload() << std::endl;
+			s[0].l[0].set_config_items();
+			config = s[0].l[0].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
 			s[0].l[1].set_location(rf);
-			std::cout << "server 0 location 1" << std::endl;
-			std::cout << "---->" << s[0].l[1].get_location() << std::endl;
-			std::cout << "---->" << s[0].l[1].get_root() << std::endl;
-			std::cout << "---->" << s[0].l[1].get_index() << std::endl;
-			std::cout << "---->" << s[0].l[1].get_upload() << std::endl;
+			s[0].l[1].set_config_items();
+			config = s[0].l[1].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
 			s[0].l[2].set_location(rf);
-			std::cout << "server 0 location 2" << std::endl;
-			std::cout << "---->" << s[0].l[2].get_location() << std::endl;
-			std::cout << "---->" << s[0].l[2].get_root() << std::endl;
-			std::cout << "---->" << s[0].l[2].get_index() << std::endl;
-			std::cout << "---->" << s[0].l[2].get_upload() << std::endl;
+			s[0].l[2].set_config_items();
+			config = s[0].l[2].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
 			s[1].l[0].set_location(rf);
-			std::cout << "server 1 location 0" << std::endl;
-			std::cout << "---->" << s[1].l[0].get_location() << std::endl;
-			std::cout << "---->" << s[1].l[0].get_root() << std::endl;
-			std::cout << "---->" << s[1].l[0].get_index() << std::endl;
-			std::cout << "---->" << s[1].l[0].get_upload() << std::endl;
+			s[1].l[0].set_config_items();
+			config = s[1].l[0].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
 			s[1].l[1].set_location(rf);
-			std::cout << "server 1 location 1" << std::endl;
-			std::cout << "---->" << s[1].l[1].get_location() << std::endl;
-			std::cout << "---->" << s[1].l[1].get_root() << std::endl;
-			std::cout << "---->" << s[1].l[1].get_index() << std::endl;
-			std::cout << "---->" << s[1].l[1].get_upload() << std::endl;
+			s[1].l[1].set_config_items();
+			config = s[1].l[1].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
 			s[1].l[2].set_location(rf);
-			std::cout << "server 1 location 2" << std::endl;
-			std::cout << "---->" << s[1].l[2].get_location() << std::endl;
-			std::cout << "---->" << s[1].l[2].get_root() << std::endl;
-			std::cout << "---->" << s[1].l[2].get_index() << std::endl;
-			std::cout << "---->" << s[1].l[2].get_upload() << std::endl;
+			s[1].l[2].set_config_items();
+			config = s[1].l[2].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
 			s[1].l[3].set_location(rf);
-			std::cout << "server 1 location 3" << std::endl;
-			std::cout << "---->" << s[1].l[3].get_location() << std::endl;
-			std::cout << "---->" << s[1].l[3].get_root() << std::endl;
-			std::cout << "---->" << s[1].l[3].get_index() << std::endl;
-			std::cout << "---->" << s[1].l[3].get_upload() << std::endl;
+			s[1].l[3].set_config_items();
+			config = s[1].l[3].get_config_item();
+			it = config.begin();
+			while (it != config.end())
+			{
+				std::cout << it->first << ","<< it->second << std::endl;
+				++it;
+			}
+			rf.close();
 		}
 		catch(std::exception &e)
 		{
