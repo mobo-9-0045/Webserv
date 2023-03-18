@@ -71,11 +71,25 @@ std::string	Location::set_values(std::string line)
 
 void	Location::set_config_items()
 {
+	if (this->location_val == "")
+		throw (SyntaxError());
+	if (this->root_val == "")
+		throw (SyntaxError());
+	if (this->index_val == "")
+		throw (SyntaxError());
+	if (this->upload_val == "")
+		throw (SyntaxError());
+	if (this->host == "")
+		throw (SyntaxError());
+	if (this->methods == "")
+		throw (SyntaxError());
 	this->config_items.insert(std::make_pair("location", this->location_val));
 	this->config_items.insert(std::make_pair("root", this->root_val));
 	this->config_items.insert(std::make_pair("index", this->index_val));
 	this->config_items.insert(std::make_pair("upload", this->upload_val));
 	this->config_items.insert(std::make_pair("host", this->host));
+	this->config_items.insert(std::make_pair("methods", this->methods));
+	this->config_items.insert(std::make_pair("port", this->port));
 }
 
 std::map<std::string, std::string>	Location::get_config_item(void) const
@@ -90,7 +104,7 @@ void	Location::set_methods(std::ifstream &rf)
 	while (!rf.eof())
 	{
 		getline(rf, line);
-		if (line.compare(0, 8, "\tmethods") == 0)
+		if (line.compare(0, 9, "\t\tmethods") == 0)
 		{
 			this->methods = line;
 			return ;
@@ -103,22 +117,23 @@ std::string	Location::get_methods(void) const
 	return (this->methods);
 }
 
-void	Location::set_host(std::ifstream &rf)
+void	Location::set_host(std::ifstream &rf, char *str)
 {
 	std::string line;
 	size_t	i;
+
+	this->check_yml(str);
 	while (!rf.eof())
 	{
 		getline(rf, line);
-		if (line.compare(0, 8, "\t\tlisten") == 0)
+		if (line.compare(0, 7, "\tlisten") == 0)
 		{
 			i = line.find(":");
-			std::cout << i << std::endl;
 			if (i == std::string::npos)
 				throw(SyntaxError());
-			line = line.substr(9, i);
-			std::cout  << "|" << line << "|" << std::endl;
-			this->set_methods(rf);
+			this->host = line.substr(8, i - 8);
+			this->port = line.substr(i + 1, line.length() - i);
+			this->set_location(rf);
 			return ;
 		}
 	}
@@ -139,7 +154,7 @@ void	Location::set_upload(std::ifstream &rf)
 		if (line.compare(0, 8, "\t\tupload") == 0)
 		{
 			this->upload_val = set_values(line);
-			this->set_host(rf);
+			this->set_methods(rf);
 			return ;
 		}
 	}
@@ -235,12 +250,6 @@ void	Location::check_yml(char *str)
 	i = this->file_name.find(yml, 0);
 	if (i == std::string::npos)
 		throw(YmlFileError());
-}
-
-void	Location::setNginixFile(std::ifstream &rf, char *str)
-{
-	this->check_serverfile(rf);
-	this->check_yml(str);
 }
 
 std::string		Location::getData(void) const

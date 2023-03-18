@@ -17,6 +17,7 @@
 # include<exception>
 # include<algorithm>
 # include<map>
+# include<stdlib.h>
 
 class Location
 {
@@ -27,6 +28,7 @@ class Location
 		std::string	index_val;
 		std::string	location_val;
 		std::string	host;
+		std::string	port;
 		std::string	upload_val;
 		std::string methods;
 		std::map<std::string, std::string> config_items;
@@ -88,9 +90,9 @@ class Location
 		void	set_methods(std::ifstream &rf);
 		std::string	get_methods(void) const;
 
-		void	set_host(std::ifstream &rf);
+		void	set_host(std::ifstream &rf, char *str);
 		std::string	get_host(void) const;
-		std::string	get_hots(void) const;
+
 		std::map<std::string, std::string>	get_config_item(void) const;
 		virtual ~Location();
 };

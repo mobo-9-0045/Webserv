@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 			n_servr = count_servers(argv);
 			Server s[n_servr];
 			std::map<std::string, std::string>::iterator it;
-			s[0].l[0].set_location(rf);
+			s[0].l[0].set_host(rf, argv[1]);
 			s[0].l[0].set_config_items();
 			config = s[0].l[0].get_config_item();
 			it = config.begin();
@@ -64,61 +64,6 @@ int main(int argc, char **argv)
 				std::cout << it->first << ","<< it->second << std::endl;
 				++it;
 			}
-			s[0].l[1].set_location(rf);
-			s[0].l[1].set_config_items();
-			config = s[0].l[1].get_config_item();
-			it = config.begin();
-			while (it != config.end())
-			{
-				std::cout << it->first << ","<< it->second << std::endl;
-				++it;
-			}
-			s[0].l[2].set_location(rf);
-			s[0].l[2].set_config_items();
-			config = s[0].l[2].get_config_item();
-			it = config.begin();
-			while (it != config.end())
-			{
-				std::cout << it->first << ","<< it->second << std::endl;
-				++it;
-			}
-			s[1].l[0].set_location(rf);
-			s[1].l[0].set_config_items();
-			config = s[1].l[0].get_config_item();
-			it = config.begin();
-			while (it != config.end())
-			{
-				std::cout << it->first << ","<< it->second << std::endl;
-				++it;
-			}
-			s[1].l[1].set_location(rf);
-			s[1].l[1].set_config_items();
-			config = s[1].l[1].get_config_item();
-			it = config.begin();
-			while (it != config.end())
-			{
-				std::cout << it->first << ","<< it->second << std::endl;
-				++it;
-			}
-			s[1].l[2].set_location(rf);
-			s[1].l[2].set_config_items();
-			config = s[1].l[2].get_config_item();
-			it = config.begin();
-			while (it != config.end())
-			{
-				std::cout << it->first << ","<< it->second << std::endl;
-				++it;
-			}
-			s[1].l[3].set_location(rf);
-			s[1].l[3].set_config_items();
-			config = s[1].l[3].get_config_item();
-			it = config.begin();
-			while (it != config.end())
-			{
-				std::cout << it->first << ","<< it->second << std::endl;
-				++it;
-			}
-			rf.close();
 		}
 		catch(std::exception &e)
 		{

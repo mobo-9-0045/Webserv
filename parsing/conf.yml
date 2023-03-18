@@ -1,44 +1,7 @@
 server:
+	listen 127.0.0.1:1122
 	location /exampl:
 		root /valid_path_file
 		index /(default)
 		upload /path
-		listen 127.0.0.1:8080
-	methods 222
-	location /ok:
-		root /valid_path_file1
-		index /(default)1
-		upload /path1
-		listen 127.0.0.1:8080
-	methods 1 2 3
-	location /ok2:
-		root /valid_path_file2
-		index /(default)2
-		upload /path2
-		listen 127.0.0.1:8080
-	methods 1 2 3
-server:
-	location /exampl:
-		root /valid_path_files
-		index /(default)s
-		upload /paths
-		listen 127.0.0.1:8080
-	methods 1 2 3
-	location /ok:
-		root /valid_path_files1
-		index /(default)s1
-		upload /paths1
-		listen 127.0.0.1:8080
-	methods 1 2 3
-	location /ok2:
-		root /valid_path_files2
-		index /(default)s2
-		upload /paths2
-		listen 127.0.0.1:8080
-	methods
-	location /ok3:
-		root /valid_path_files3
-		index /(default)s3
-		upload /paths3
-		listen 127.0.0.1:8080
-	methods 1 2 3
+		methods POST DELETE GIT
