@@ -39,7 +39,6 @@ int main(int argc, char **argv)
 	if (argc == 2)
 	{
 		(void)argv;
-		//Location *l = new Location();
 		try
 		{
 			std::map<std::string, std::string> config;
